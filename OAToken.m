@@ -176,10 +176,21 @@
 	[attributes setObject: aAttribute forKey: aKey];
 }
 
+- (NSDictionary*)attributes {
+  @synchronized (self) {
+    return [[attributes copy] autorelease];
+  }
+}
+
 - (void)setAttributes:(NSDictionary *)theAttributes {
-	[attributes release];
-	attributes = [[NSMutableDictionary alloc] initWithDictionary:theAttributes];
-	
+  @synchronized (self) {
+    if (attributes == theAttributes) {
+      return;
+    }
+    
+    [attributes release];
+    attributes = [theAttributes mutableCopy];	
+  }
 }
 
 - (BOOL)hasAttributes {
