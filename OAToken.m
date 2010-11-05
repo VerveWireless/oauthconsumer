@@ -98,7 +98,7 @@
 			}
 		}
     }
-    
+
     return [self initWithKey:aKey secret:aSecret session:aSession duration:aDuration
 				  attributes:attrs created:creationDate renewable:renew];
 }
@@ -117,7 +117,7 @@
 		[self autorelease];
 		return nil;
 	}
-	
+
 	return self;
 }
 
@@ -145,7 +145,7 @@
 	[OAToken saveSetting:@"session" object:session provider:provider prefix:prefix];
 	[OAToken saveSetting:@"attributes" object:attributes provider:provider prefix:prefix];
 	[OAToken saveSetting:@"renewable" object:renewable ? @"t" : @"f" provider:provider prefix:prefix];
-	
+
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	return(0);
 }
@@ -201,7 +201,7 @@
 	if (![self hasAttributes]) {
 		return @"";
 	}
-	
+
 	NSMutableArray *chunks = [[NSMutableArray alloc] init];
 	for(NSString *aKey in self->attributes) {
 		[chunks addObject:[NSString stringWithFormat:@"%@:%@", aKey, [attributes objectForKey:aKey]]];
@@ -261,35 +261,35 @@
 			return YES;
 		}
 	}
-	
+
 	return NO;
 }
-			
+
 #pragma mark class_functions
-			
+
 + (NSString *)settingsKey:(NSString *)name provider:(NSString *)provider prefix:(NSString *)prefix {
 	return [NSString stringWithFormat:@"OAUTH_%@_%@_%@", provider, prefix, [name uppercaseString]];
 }
-			
+
 + (id)loadSetting:(NSString *)name provider:(NSString *)provider prefix:(NSString *)prefix {
 	return [[NSUserDefaults standardUserDefaults] objectForKey:[self settingsKey:name
 																		provider:provider
 																		  prefix:prefix]];
 }
-			
+
 + (void)saveSetting:(NSString *)name object:(id)object provider:(NSString *)provider prefix:(NSString *)prefix {
 	[[NSUserDefaults standardUserDefaults] setObject:object forKey:[self settingsKey:name
 																			provider:provider
 																			  prefix:prefix]];
 }
-	
+
 + (void)removeFromUserDefaultsWithServiceProviderName:(NSString *)provider prefix:(NSString *)prefix {
 	NSArray *keys = [NSArray arrayWithObjects:@"key", @"secret", @"created", @"duration", @"session", @"attributes", @"renewable", nil];
 	for(NSString *name in keys) {
 		[[NSUserDefaults standardUserDefaults] removeObjectForKey:[OAToken settingsKey:name provider:provider prefix:prefix]];
 	}
 }
-			
+
 + (NSNumber *)durationWithString:(NSString *)aDuration {
 	NSUInteger length = [aDuration length];
 	unichar c = toupper([aDuration characterAtIndex:length - 1]);
@@ -312,7 +312,7 @@
 	} else {
 		mult = 1;
 	}
-	
+
 	return [NSNumber numberWithInt: mult * [[aDuration substringToIndex:length - 1] intValue]];
 }
 
