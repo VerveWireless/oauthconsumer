@@ -43,9 +43,11 @@
 			token:(OAToken *)aToken
             realm:(NSString *)aRealm
 signatureProvider:(id<OASignatureProviding, NSObject>)aProvider {
-    [super initWithURL:aUrl
+	if (!(self = [super initWithURL:aUrl
            cachePolicy:NSURLRequestReloadIgnoringCacheData
-       timeoutInterval:10.0];
+                    timeoutInterval:10.0])) {
+		return nil;
+	}
     
     consumer = aConsumer;
     
@@ -84,11 +86,13 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider {
 signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
             nonce:(NSString *)aNonce
         timestamp:(NSString *)aTimestamp {
-    [self initWithURL:aUrl
+	if (!(self = [self initWithURL:aUrl
              consumer:aConsumer
                 token:aToken
                 realm:aRealm
-    signatureProvider:aProvider];
+                 signatureProvider:aProvider])) {
+		return nil;
+	}
     
     nonce = [aNonce copy];
     timestamp = [aTimestamp copy];

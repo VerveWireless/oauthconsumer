@@ -31,7 +31,10 @@
 @synthesize request, response, data, didSucceed;
 
 - (id)initWithRequest:(OAMutableURLRequest *)aRequest response:(NSURLResponse *)aResponse data:(NSData *)aData didSucceed:(BOOL)success {
-    [super init];
+	if (!(self = [super init])) {
+		return nil;
+	}
+  
     request = aRequest;
     response = aResponse;
 	data = aData;

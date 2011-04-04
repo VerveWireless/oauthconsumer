@@ -31,7 +31,10 @@
 @synthesize name, value;
 
 - (id)initWithName:(NSString *)aName value:(NSString *)aValue {
-    [super init];
+	if (!(self = [super init])) {
+		return nil;
+	}
+  
     self.name = aName;
     self.value = aValue;
     return self;

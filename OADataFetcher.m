@@ -33,7 +33,10 @@
 @synthesize delegate;
 
 - (id)init {
-	[super init];
+	if (!(self = [super init])) {
+		return nil;
+	}
+  
 	responseData = [[NSMutableData alloc] init];
 	return self;
 }
